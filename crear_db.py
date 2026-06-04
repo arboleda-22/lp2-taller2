@@ -48,5 +48,5 @@ INSERT INTO productos (
 """, datos)
 
 # grabar
-conexion.commit()
-conexion.close()
+conection.commit()
+conection.close()
