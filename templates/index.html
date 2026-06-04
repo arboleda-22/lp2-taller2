@@ -1,23 +1,12 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Catálogo - Tienda LP2{% endblock %}
+{% block titulo %}Tienda LP2 - Bienvenido{% endblock %}
 
 {% block content %}
-<h2>Catálogo de Productos</h2>
-
-{% if productos_con_foto %}
-    {% for producto, foto in productos_con_foto %}
-    <div class="producto">
-        <img src="{{ url_for('static', filename='fotos/' + foto) }}" alt="{{ producto['marca'] }} {{ producto['modelo'] }}" width="200">
-        
-        <h3>{{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}</h3>
-        <p><b>Precio:</b> ${{ "{:,}".format(producto['precio']) }} COP</p>
-        <a href="/producto/{{ producto['id'] }}">Ver detalle →</a>
-    </div>
-    {% endfor %}
-{% else %}
-    <p>No hay productos en la base de datos. 
-    Ejecuta primero: <code>python crear_db.py</code></p>
-{% endif %}
+<div class="banner">
+    <img src="{{ url_for('static', filename='imagenes/titulo.png') }}" alt="Tienda Virtual LP2" width="100%">
+    <h1>Bienvenido a Tienda LP2</h1>
+    <p>Los mejores productos en tecnología al mejor precio</p>
+    <a href="/catalogo" class="btn">Ingresar al catálogo</a>
+</div>
 {% endblock %}
-
