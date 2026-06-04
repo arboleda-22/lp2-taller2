@@ -1,18 +1,17 @@
-{% extends 'base.html' %} {% block titulo %}Tienda Virtual{% endblock %} {%
-    block contenido %}
-    <table class="products" align="center">
-      <!-- <tr>
-        <th>marca</th>
-        <th>nombre</th>
-        <th>precio</th>
-      </tr> -->
-      {% for producto in productos %}
-      <tr class="info">
-        <td>{{ producto.marca }}</td>
-        <td><a href="/producto/{{producto.id}}">{{ producto.nombre }}</a></td>
-        <td style="text-align: right">{{ "{:,}".format(producto.precio) }}</td>
-      </tr>
-      {% endfor %}
-    </table>
-    {% endblock %}
+{% extends 'base.html' %}
+
+{% block titulo %}Tienda LP2 - Bienvenido{% endblock %}
+
+{% block content %}
+<div class="banner">
+    <img src="{{ url_for('static', filename='imagenes/titulo.png') }}" alt="Tienda Virtual LP2">
+    <h1>BIENVENIDO</h1>
+    <p>Productos tecnológicos al mejor precio</p>
+    <a href="/catalogo" class="btn">Ingresar al catálogo</a>
+    
+    <div class="footer">
+        © 2026 Tienda LP2 - Proyecto Flask
+    </div>
+</div>
+{% endblock %}
     
