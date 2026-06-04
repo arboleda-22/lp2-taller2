@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect
 import sqlite3
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 def get_db():
     conexion = sqlite3.connect('productos.db')
@@ -39,6 +39,5 @@ def ruta_producto(pid):
     
     return render_template('producto.html', producto=producto)
   
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
-    
