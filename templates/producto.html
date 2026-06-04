@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
-{% block titulo %}{{producto.id}}: {{producto.nombre}}{% endblock %}
+{% block titulo %}{{ producto['marca'] }} {{ producto['modelo'] }}{% endblock %}
 
-{% block contenido %}
+{% block content %}
+<a href="/">← Volver al catálogo</a>
 
-
+<div class="producto">
+    <h2>{{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}</h2>
+    <p><b>ID:</b> {{ producto['id'] }}</p>
+    <p><b>Descripción:</b> {{ producto['descripcion'] }}</p>
+    <p><b>Precio:</b> ${{ "{:,}".format(producto['precio']) }} COP</p>
+</div>
 {% endblock %}

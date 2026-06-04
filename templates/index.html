@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 
-{% block titulo %}Tienda Virtual{% endblock %}
+{% block titulo %}Catálogo - Tienda LP2{% endblock %}
 
-{% block contenido %}
+{% block content %}
+<h2>Catálogo de Productos</h2>
 
+{% if productos %}
+    {% for producto in productos %}
+    <div class="producto">
+        <h3>{{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}</h3>
+        <p><b>Precio:</b> ${{ "{:,}".format(producto['precio']) }} COP</p>
+        <a href="/producto/{{ producto['id'] }}">Ver detalle →</a>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No hay productos en la base de datos. 
+    Ejecuta primero: <code>python crear_db.py</code></p>
+{% endif %}
 
 {% endblock %}
