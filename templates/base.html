@@ -1,14 +1,80 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>{% block titulo %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
-  </head>
-  <body>
-    <img
-      src="{{url_for('static', filename= 'imagenes/titulo.png')}}"
-      class="center"
-    />
-    {% block contenido %}{% endblock %}
-  </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Tienda LP2{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .banner {
+            background: rgba(173, 216, 230, 0.7); /* azul claro traslúcido */
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .banner img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .banner h1 {
+            margin: 20px 0 10px 0;
+            font-size: 2.5em;
+            color: #333;
+        }
+        
+        .banner p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
 </html>
