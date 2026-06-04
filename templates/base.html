@@ -1,28 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo %}Tienda LP2{% endblock %}</title>
-    
-    <!-- ESTA LÍNEA CONECTA TU CSS -->
+<html>
+  <head>
+    <title>{% block titulo %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
-</head>
-<body>
-    <header>
-        <h1>🛒 Tienda LP2</h1>
-        <nav>
-            <a href="{{ url_for('ruta_raiz') }}">Catálogo</a>
-        </nav>
-    </header>
-
-    <main id="content">
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <footer>
-        <p>© 2026 Tienda LP2 - Proyecto Flask</p>
-    </footer>
-</body>
+  </head>
+  <body>
+    <img
+      src="{{url_for('static', filename= 'imagenes/titulo.png')}}"
+      class="center"
+    />
+    {% block contenido %}{% endblock %}
+  </body>
 </html>

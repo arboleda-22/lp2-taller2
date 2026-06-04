@@ -3,19 +3,148 @@
 {% block titulo %}Catálogo - Tienda LP2{% endblock %}
 
 {% block content %}
-<h2>Catálogo de Productos</h2>
+<style>
+    body { background: #f5f5f5; margin: 0; }
+    
+    .encabezado {
+        background: #0033a0;
+        color: white;
+        text-align: center;
+        padding: 25px;
+        margin: 0;
+    }
+    
+    .encabezado h2 {
+        margin: 0;
+        font-size: 2em;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    
+    .catalogo-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px 60px 20px;
+    }
+    
+    .grid-productos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px;
+    }
+    
+    @media (max-width: 768px) {
+        .grid-productos { grid-template-columns: 1fr; }
+    }
+    
+    .producto {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    
+    .producto:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    .producto img {
+        width: 100%;
+        height: 240px;
+        object-fit: contain;
+        margin-bottom: 15px;
+    }
+    
+    .estrellas {
+        color: #ffa500;
+        font-size: 0.95em;
+        margin-bottom: 8px;
+    }
+    
+    .producto h3 {
+        margin: 8px 0 15px 0;
+        min-height: 45px;
+    }
+    
+    .producto h3 a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1em;
+        line-height: 1.4;
+    }
+    
+    .producto h3 a:hover {
+        color: #0033a0;
+    }
+    
+    .precio-actual {
+        color: #0033a0;
+        font-size: 1.6em;
+        font-weight: bold;
+        margin: 15px 0 20px 0;
+    }
+    
+    .btn-detalle {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        background: #0033a0;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1em;
+        text-align: center;
+    }
+    
+    .btn-detalle:hover {
+        background: #002080;
+    }
+    
+    .btn-volver {
+        display: block;
+        width: fit-content;
+        margin: 40px auto 0;
+        padding: 12px 25px;
+        background: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+    }
+</style>
 
-{% if productos_con_foto %}
-    {% for producto, foto in productos_con_foto %}
-    <div class="producto">
-        <img src="{{ url_for('static', filename='fotos/' + foto) }}" alt="{{ producto['marca'] }} {{ producto['modelo'] }}" width="200">
-        
-        <h3>{{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}</h3>
-        <p><b>Precio:</b> ${{ "{:,}".format(producto['precio']) }} COP</p>
-        <a href="/producto/{{ producto['id'] }}">Ver detalle →</a>
-    </div>
-    {% endfor %}
-{% else %}
-    <p>No hay productos en la base de datos.</p>
-{% endif %}
+<div class="encabezado">
+    <h2>NUEVOS PRODUCTOS</h2>
+</div>
+
+<div class="catalogo-container">
+    {% if productos_con_foto %}
+        <div class="grid-productos">
+            {% for producto, foto in productos_con_foto %}
+            <div class="producto">
+                <img src="{{ url_for('static', filename='fotos/' + foto) }}" alt="{{ producto['marca'] }} {{ producto['modelo'] }}">
+                
+                <div class="estrellas">4.8 ⭐⭐ (150)</div>
+                
+                <h3>
+                 <a href="/producto/{{ producto['id'] }}">
+                   {{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}
+                 </a>
+                </h3>
+                
+                <div class="precio-actual">${{ "{:,}".format(producto['precio']) }} COP</div>
+                
+                <a href="/producto/{{ producto['id'] }}" class="btn-detalle">Ver detalle</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align:center; font-size:1.2em; color:#666;">No hay productos en la base de datos.</p>
+    {% endif %}
+    
+    <a href="/" class="btn-volver">← Volver al inicio</a>
+</div>
 {% endblock %}
