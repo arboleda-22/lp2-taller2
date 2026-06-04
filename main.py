@@ -3,44 +3,41 @@ import sqlite3
 
 app = Flask(__name__)
 
-def obtener_productos():
-    conexion = sqlite3.connect("productos.db")  # <-- usa la misma BD que crear_db.py
+def get_db():
+    conexion = sqlite3.connect('productos.db')
     conexion.row_factory = sqlite3.Row
-    cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM productos;")
-    productos = [dict(p) for p in cursor.fetchall()]
-    conexion.close()
-    return productos
+    return conexion
 
-@app.route("/")
+@app.route('/')
 def ruta_raiz():
-    productos = obtener_productos()  # <-- consulta cada vez que entras
-    return render_template("index.html", productos=productos)
+    # Página de bienvenida solo con banner y botón
+    return render_template('index.html')
 
-@app.route("/catalogo")
+@app.route('/catalogo')
 def ruta_catalogo():
-    conexion = sqlite3.connect("productos.db")
-    conexion.row_factory = sqlite3.Row
-    cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM productos;")
-    productos = [dict(p) for p in cursor.fetchall()]
-    conexion.close()
-    
-    # Agrega el nombre de la foto basado en el id
-    productos_con_foto = []
-    for p in productos:
-        foto = f"{p['id']}.jpg"  # 101.jpg, 104.jpg, etc
-        productos_con_foto.append((p, foto))
-    
-    return render_template("catalogo.html", productos_con_foto=productos_con_foto)
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM productos ORDER BY id")  # respeta orden de fotos
+    productos = cursor.fetchall()
+    conn.close()
 
-@app.route("/producto/<int:pid>")
+    fotos = ['101.jpg', '104.jpg', '201.jpg', '203.jpg', '207.jpg', '208.jpg', '301.jpg', '302.jpg', '304.jpg']
+    productos_con_foto = list(zip(productos, fotos))
+    
+    return render_template('catalogo.html', productos_con_foto=productos_con_foto)
+
+@app.route('/producto/<int:pid>')
 def ruta_producto(pid):
-    productos = obtener_productos()
-    for producto in productos:
-        if pid == producto["id"]:
-            return render_template("producto.html", producto=producto)
-    return redirect("/")
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM productos WHERE id = ?", (pid,))
+    producto = cursor.fetchone()
+    conn.close()
+    
+    if producto is None:
+        return "Producto no encontrado", 404
+    
+    return render_template('producto.html', producto=producto)
+  
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True, port=5000)
