@@ -10,7 +10,7 @@
         background: #0033a0;
         color: white;
         text-align: center;
-        padding: 25px;
+        padding: 25px 20px;
         margin: 0;
     }
     
@@ -34,7 +34,9 @@
     }
     
     @media (max-width: 768px) {
-        .grid-productos { grid-template-columns: 1fr; }
+        .grid-productos {
+            grid-template-columns: 1fr;
+        }
     }
     
     .producto {
@@ -43,12 +45,12 @@
         padding: 20px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         text-align: center;
-        transition: transform 0.3s;
     }
     
     .producto:hover {
-        transform: translateY(-5px);
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transform: translateY(-3px);
+        transition: all 0.3s;
     }
     
     .producto img {
@@ -65,19 +67,11 @@
     }
     
     .producto h3 {
+        font-size: 1em;
+        color: #333;
         margin: 8px 0 15px 0;
         min-height: 45px;
-    }
-    
-    .producto h3 a {
-        text-decoration: none;
-        color: #333;
-        font-size: 1em;
         line-height: 1.4;
-    }
-    
-    .producto h3 a:hover {
-        color: #0033a0;
     }
     
     .precio-actual {
@@ -129,11 +123,7 @@
                 
                 <div class="estrellas">4.8 ⭐⭐ (150)</div>
                 
-                <h3>
-                 <a href="/producto/{{ producto['id'] }}">
-                   {{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}
-                 </a>
-                </h3>
+                <h3>{{ producto['tipo'] }} - {{ producto['marca'] }} {{ producto['modelo'] }}</h3>
                 
                 <div class="precio-actual">${{ "{:,}".format(producto['precio']) }} COP</div>
                 
